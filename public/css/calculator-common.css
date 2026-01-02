@@ -1,0 +1,242 @@
+/* Common Calculator Styles - Consistent Design Across All Calculators */
+
+:root {
+    --calc-header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --calc-form-bg: #ffffff;
+    --calc-results-bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --calc-results-bg-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --calc-results-bg-dark: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    --calc-results-bg-warm: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --calc-results-bg-cool: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Calculator Header Section */
+.calculator-header {
+    background: var(--calc-header-bg);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.calculator-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.calculator-header p {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.calculator-header a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: underline;
+}
+
+/* Calculator Container */
+.calculator-wrapper {
+    display: flex;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.form-wrapper {
+    flex: 1;
+    min-width: 400px;
+}
+
+.results-wrapper {
+    width: 400px;
+    min-width: 350px;
+}
+
+@media (max-width: 992px) {
+    .calculator-wrapper {
+        flex-direction: column;
+        margin: 20px auto;
+    }
+    
+    .results-wrapper {
+        width: 100%;
+    }
+}
+
+/* Form Section */
+.form-container {
+    background: var(--calc-form-bg);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+.form-container h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+}
+
+/* Results Section - Default Primary Gradient */
+.results-section {
+    margin-top: 0;
+    padding: 2.5rem;
+    background: var(--calc-results-bg-primary);
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    color: white;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.results-section h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Result Items */
+.result-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.result-item:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateX(5px);
+}
+
+.result-item:last-child {
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+}
+
+.result-label {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.result-value {
+    font-weight: 700;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.result-item:last-child .result-value {
+    font-size: 1.75rem;
+}
+
+/* Gradient Variations for Different Calculators */
+.results-section.budget-results {
+    background: var(--calc-results-bg-primary);
+}
+
+.results-section.investment-results {
+    background: var(--calc-results-bg-success);
+}
+
+.results-section.retirement-results {
+    background: var(--calc-results-bg-dark);
+}
+
+.results-section.mortgage-results {
+    background: var(--calc-results-bg-warm);
+}
+
+.results-section.mortgage-payoff-results {
+    background: var(--calc-results-bg-cool);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .results-section {
+        position: relative;
+        top: 0;
+    }
+    
+    .calculator-header {
+        padding: 2rem 1.5rem;
+    }
+    
+    .calculator-header h1 {
+        font-size: 2rem;
+    }
+    
+    .form-container {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .calculator-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .calculator-header p {
+        font-size: 1rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+}
+
