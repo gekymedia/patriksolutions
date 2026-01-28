@@ -346,6 +346,11 @@
                                 <i class="fas fa-graduation-cap me-1"></i>Courses
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('index') }}#ai-training" style="font-size: 1rem; font-weight: 500;">
+                                <i class="fas fa-robot me-1"></i>AI Training
+                            </a>
+                        </li>
                         
                         <!-- Free Tools Dropdown -->
                         <li class="nav-item dropdown">

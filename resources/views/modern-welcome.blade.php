@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Patrik Solutions - Financial Literacy & Tools')
+@section('title', 'Patrik Solutions - Financial Literacy, AI Training & Tools')
 
 @section('content')
 <!-- Hero Section -->
@@ -12,13 +12,17 @@
                         <span class="text-gradient" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Patrik Solutions</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Your ultimate destination for financial literacy. Explore powerful calculators, 
-                        educational resources, and expert guidance to take control of your financial future.
+                        Your ultimate destination for financial literacy and AI training. Explore powerful calculators, 
+                        educational resources, expert guidance, and hands-on AI learning to take control of your financial future.
                     </p>
                            <div class="hero-buttons">
                                <a href="{{ route('financial-assessment.index') }}" class="btn btn-modern btn-lg" style="background: rgba(255,255,255,0.95); color: var(--primary-color); border: 2px solid rgba(255,255,255,0.3);">
                                    <i class="fas fa-clipboard-check"></i>
                                    Take Free Assessment
+                               </a>
+                               <a href="#ai-training" class="btn btn-modern btn-lg" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3);">
+                                   <i class="fas fa-robot"></i>
+                                   AI Training &amp; Register
                                </a>
                                @auth
                                    <a href="{{ route('dashboard') }}" class="btn btn-modern btn-modern-primary btn-lg">
@@ -58,6 +62,22 @@
                 <p>Discover your financial health and make informed decisions with our comprehensive suite of tools</p>
             </div>
             <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="feature-title">AI Training</h3>
+                        <p class="feature-description">
+                            Join our live AI training sessions via Zoom. Learn practical AI skills alongside 
+                            financial tools—register for upcoming events and stay ahead.
+                        </p>
+                        <a href="#ai-training" class="btn btn-modern btn-modern-primary w-100 mt-3">
+                            Register for AI Training <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="col-md-6 col-lg-4">
                     <div class="feature-card">
                         <div class="feature-icon" style="background: var(--gradient-warm);">
@@ -215,6 +235,52 @@
                         <a href="{{ route('course.index') }}" class="btn btn-modern btn-modern-primary w-100 mt-3">
                             View Courses <i class="fas fa-arrow-right ms-2"></i>
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Training & Event Registration Section -->
+    <section class="modern-section" id="ai-training" style="background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-robot me-2" style="color: #6366f1;"></i>AI Training &amp; Event Registration</h2>
+                <p>Register for our AI training sessions—delivered live on Zoom. Master AI alongside our financial services. Contact us at <a href="tel:7039811910" style="color: var(--primary-color); font-weight: 600;">(703) 981-1910</a>.</p>
+            </div>
+            <div class="row align-items-start">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="modern-card h-100 p-4">
+                        <h4 class="mb-3" style="font-weight: 700; color: var(--text-primary);">Why join our AI training?</h4>
+                        <ul class="list-unstyled mb-0" style="line-height: 2;">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Live sessions via Zoom</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Practical, hands-on AI skills</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Expert-led workshops</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Financial literacy + AI in one place</li>
+                        </ul>
+                        <hr class="my-4">
+                        <p class="mb-2 small text-muted"><i class="fas fa-video me-1"></i> Location: Zoom</p>
+                        <p class="mb-0 small text-muted"><i class="fas fa-phone me-1"></i> <a href="tel:7039811910" style="color: var(--primary-color);">(703) 981-1910</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="modern-card p-0 overflow-hidden">
+                        <div class="p-3 px-4" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white;">
+                            <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Event registration</h5>
+                            <p class="mb-0 small opacity-90">Complete the form below to register. We&rsquo;ll send you details for the Zoom session.</p>
+                        </div>
+                        <div class="p-2 p-lg-3">
+                            <iframe
+                                src="https://docs.google.com/forms/d/1uBWEHO8vTvV5OqYtnneQ1lIYQkym2qi0Uk4M_SU3LEc/viewform?embedded=true"
+                                width="100%"
+                                height="650"
+                                frameborder="0"
+                                marginheight="0"
+                                marginwidth="0"
+                                title="AI Training Event Registration"
+                                style="min-height: 600px; border-radius: 8px;"
+                            >Loading…</iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -547,14 +613,18 @@
     <!-- CTA Section -->
     <section class="modern-section" style="background: var(--bg-light); width: 100%; margin: 0;">
         <div class="container text-center">
-            <h2 class="mb-4" style="font-size: 2.5rem; font-weight: 800; color: var(--text-primary);">Ready to Transform Your Finances?</h2>
+            <h2 class="mb-4" style="font-size: 2.5rem; font-weight: 800; color: var(--text-primary);">Ready to Transform Your Finances &amp; Build AI Skills?</h2>
             <p class="mb-5" style="font-size: 1.25rem; color: var(--text-secondary);">
-                Join thousands of users who are already taking control of their financial future
+                Join thousands of users taking control of their financial future—and register for our AI training events.
             </p>
             <div class="d-flex gap-3 justify-content-center flex-wrap">
                 <a href="{{ route('financial-assessment.index') }}" class="btn btn-modern btn-modern-primary btn-lg">
                     <i class="fas fa-clipboard-check me-2"></i>
                     Take Free Assessment
+                </a>
+                <a href="#ai-training" class="btn btn-modern btn-lg" style="background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(99,102,241,0.15) 100%); color: #6366f1; border: 1px solid rgba(99,102,241,0.3);">
+                    <i class="fas fa-robot me-2"></i>
+                    Register for AI Training
                 </a>
                 @auth
                     <a href="{{ route('dashboard') }}" class="btn btn-modern btn-lg" style="background: rgba(102,126,234,0.1); color: var(--primary-color); border: 1px solid rgba(102,126,234,0.2);">
@@ -629,6 +699,11 @@
                         </a>
                     </li>
                     @endif
+                    <li>
+                        <a href="{{ route('index') }}#ai-training" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s ease; font-size: 15px;" onmouseover="this.style.color='white'; this.style.paddingLeft='5px'" onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'">
+                            <i class="fas fa-chevron-right me-2" style="font-size: 0.75rem;"></i>AI Training
+                        </a>
+                    </li>
                 </ul>
             </div>
 
