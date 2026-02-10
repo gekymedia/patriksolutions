@@ -11,7 +11,7 @@
                         Master Your Finances with 
                         <span class="text-gradient" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Patrik Solutions</span>
                     </h1>
-                    <p class="hero-subtitle">
+                    <p class="hero-subtitle" style="color: white;">
                         Your ultimate destination for financial literacy and AI training. Explore powerful calculators, 
                         educational resources, expert guidance, and hands-on AI learning to take control of your financial future.
                     </p>
@@ -19,10 +19,6 @@
                                <a href="{{ route('financial-assessment.index') }}" class="btn btn-modern btn-lg" style="background: rgba(255,255,255,0.95); color: var(--primary-color); border: 2px solid rgba(255,255,255,0.3);">
                                    <i class="fas fa-clipboard-check"></i>
                                    Take Free Assessment
-                               </a>
-                               <a href="#ai-training" class="btn btn-modern btn-lg" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3);">
-                                   <i class="fas fa-robot"></i>
-                                   AI Training &amp; Register
                                </a>
                                @auth
                                    <a href="{{ route('dashboard') }}" class="btn btn-modern btn-modern-primary btn-lg">
@@ -54,11 +50,34 @@
         </div>
     </section>
 
+    <!-- Secondary Hero Section -->
+    <section class="hero-secondary">
+        <div class="container">
+            <div class="row align-items-center justify-content-center text-center">
+                <div class="col-lg-10 col-xl-8">
+                    <h2 class="hero-secondary-title">AI Training—All in One Place</h2>
+                    <p class="hero-secondary-subtitle">
+                        From budgeting and retirement planning to hands-on AI workshops on Zoom, Patrik Solutions 
+                        gives you the skills and tools to succeed. Join our community and take the next step today.
+                    </p>
+                    <div class="hero-secondary-buttons d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="#calculators" class="btn btn-modern btn-lg" style="background: white; color: #6366f1; border: 2px solid rgba(255,255,255,0.5);">
+                            <i class="fas fa-calculator me-2"></i>Explore Tools
+                        </a>
+                        <a href="#ai-training" class="btn btn-modern btn-lg" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.5);">
+                            <i class="fas fa-robot me-2"></i>Register for AI Training
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Section -->
     <section class="modern-section" id="calculators">
         <div class="container">
             <div class="section-title">
-                <h2>Powerful Financial Tools</h2>
+                <h2>Powerful Tools</h2>
                 <p>Discover your financial health and make informed decisions with our comprehensive suite of tools</p>
             </div>
             <div class="row g-4">
