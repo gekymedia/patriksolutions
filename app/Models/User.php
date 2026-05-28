@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use Billable, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +31,7 @@ class User extends Authenticatable
         'telegram_notifications_enabled',
         'gekychat_notifications_enabled',
         'email_notifications_enabled',
+        'plan',
     ];
 
     /**
@@ -71,5 +73,44 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->hasRole('admin') || $this->role === 'admin';
+    }
+
+    public function currentPlan(): string
+    {
+        return $this->plan ?? 'free';
+    }
+
+    public function isPro(): bool
+    {
+        return in_array($this->currentPlan(), ['pro', 'elite']);
+    }
+
+    public function isElite(): bool
+    {
+        return $this->currentPlan() === 'elite';
+    }
+
+    public function isFree(): bool
+    {
+        return $this->currentPlan() === 'free';
+    }
+
+    public function hasActivePlan(): bool
+    {
+        if ($this->isFree()) {
+            return true;
+        }
+
+        return $this->subscribed('default') ||
+            ($this->subscription('default') && $this->subscription('default')->onGracePeriod());
+    }
+
+    public function dailyChatLimit(): int
+    {
+        return match ($this->currentPlan()) {
+            'free' => 3,
+            'pro', 'elite' => 999,
+            default => 3,
+        };
     }
 }

@@ -309,6 +309,7 @@
         }
     </style>
     @stack('styles')
+    @stack('head')
     @yield('styles')
 
     <!-- Scripts -->

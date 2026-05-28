@@ -137,3 +137,30 @@ Route::get('/admin/blog-notifications', [BlogNotificationController::class, 'ind
 use App\Http\Controllers\NotificationController;
 Route::get('/admin/notifications/create', [NotificationController::class, 'create'])->middleware(['auth', 'verified', Admin::class])->name('admin.notifications.create');
 Route::post('/admin/notifications/send', [NotificationController::class, 'send'])->middleware(['auth', 'verified', Admin::class])->name('admin.notifications.send');
+
+// Membership & AI Tax Assistant
+use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\TaxAssistantController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/membership', [MembershipController::class, 'index'])->name('membership.index');
+    Route::post('/membership/subscribe', [MembershipController::class, 'subscribe'])->name('membership.subscribe');
+    Route::post('/membership/cancel', [MembershipController::class, 'cancel'])->name('membership.cancel');
+    Route::post('/membership/resume', [MembershipController::class, 'resume'])->name('membership.resume');
+    Route::get('/membership/billing', [MembershipController::class, 'billingPortal'])->name('membership.billing');
+});
+
+Route::post('/stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook')
+    ->name('cashier.webhook');
+
+Route::middleware(['auth', 'plan:pro'])->group(function () {
+    Route::post('/api/tax-assistant/chat', [TaxAssistantController::class, 'chat'])
+        ->name('tax.assistant.chat')
+        ->middleware('throttle:50,1');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/api/chat/free', [TaxAssistantController::class, 'freeChat'])
+        ->name('chat.free')
+        ->middleware('throttle:20,1');
+});
