@@ -24,7 +24,7 @@
                             </span>
                         </div>
 
-                        <img src="{{asset('storage/'.$blog->blog_thumbnail) }}" 
+                        <img src="{{ $blog->thumbnail_url ?? asset('assets/logos/patrick_logo.png') }}" 
                              class="img-fluid rounded-modern mb-4" 
                              alt="{{ $blog->blog_title }}"
                              style="width: 100%; height: 500px; object-fit: cover;">

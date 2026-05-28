@@ -438,86 +438,20 @@
                 @foreach($blogs as $blog)
                 <div class="col-md-6 col-lg-4">
                     <div class="modern-card h-100">
-                        @if($blog->blog_thumbnail)
-                        <img src="{{ asset('storage/' . $blog->blog_thumbnail) }}" 
-                             alt="{{ $blog->blog_title }}" 
+                        @if($blog->thumbnail_url)
+                        <img src="{{ $blog->thumbnail_url }}"
+                             alt="{{ $blog->blog_title }}"
                              class="img-fluid rounded-modern mb-3"
                              style="width: 100%; height: 200px; object-fit: cover;">
+                        @else
+                        <div class="rounded-modern mb-3 d-flex align-items-center justify-content-center"
+                             style="height: 200px; background: var(--gradient-primary);">
+                            <i class="fas fa-newspaper" style="font-size: 3rem; color: white; opacity: 0.6;"></i>
+                        </div>
                         @endif
                         <div class="modern-card-header" style="border-bottom: none; padding: 0; margin: 0;">
                             <h3 class="modern-card-title" style="font-size: 1.25rem;">
-                                <a href="{{ route('blog-details', $blog->id) }}" 
-                                   style="color: var(--text-primary); text-decoration: none;">
-                                    {{ Str::limit($blog->blog_title, 60) }}
-                                </a>
-                            </h3>
-                            <div class="d-flex gap-3 text-muted mb-3" style="font-size: 0.875rem;">
-                                <span><i class="fas fa-user"></i> {{ $blog->blog_author }}</span>
-                                <span><i class="fas fa-calendar"></i> {{ $blog->created_at->format('M d, Y') }}</span>
-                                <span><i class="fas fa-eye"></i> {{ $blog->blog_view }}</span>
-                            </div>
-                        </div>
-                        <a href="{{ route('blog-details', $blog->id) }}" 
-                           class="btn btn-modern btn-modern-outline w-100">
-                            Read More <i class="fas fa-arrow-right ms-2"></i>
-                        </a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            <div class="text-center mt-5">
-                <a href="{{ route('blog-posts') }}" class="btn btn-modern btn-modern-primary btn-lg">
-                    View All Blog Posts <i class="fas fa-arrow-right ms-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-    @endif
-
-    <!-- YouTube Videos Section -->
-    @if(isset($youtubes) && $youtubes->count() > 0)
-    <section class="modern-section" style="background: white;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Educational Videos</h2>
-                <p>Watch our latest financial education videos</p>
-            </div>
-            <div class="row g-4">
-                @foreach($youtubes as $youtube)
-                <div class="col-md-6 col-lg-4">
-                    <div class="modern-card">
-                        <div class="ratio ratio-16x9">
-                            {!! $youtube->url !!}
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
-
-    <!-- Latest Blogs Section -->
-    @if(isset($blogs) && $blogs->count() > 0)
-    <section class="modern-section" style="background: #f9fafb;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Latest Blog Posts</h2>
-                <p>Stay informed with our latest financial insights and tips</p>
-            </div>
-            <div class="row g-4">
-                @foreach($blogs as $blog)
-                <div class="col-md-6 col-lg-4">
-                    <div class="modern-card h-100">
-                        @if($blog->blog_thumbnail)
-                        <img src="{{ asset('storage/' . $blog->blog_thumbnail) }}" 
-                             alt="{{ $blog->blog_title }}" 
-                             class="img-fluid rounded-modern mb-3"
-                             style="width: 100%; height: 200px; object-fit: cover;">
-                        @endif
-                        <div class="modern-card-header" style="border-bottom: none; padding: 0; margin: 0;">
-                            <h3 class="modern-card-title" style="font-size: 1.25rem;">
-                                <a href="{{ route('blog-details', $blog->id) }}" 
+                                <a href="{{ route('blog-details', $blog->id) }}"
                                    style="color: var(--text-primary); text-decoration: none;">
                                     {{ Str::limit($blog->blog_title, 60) }}
                                 </a>

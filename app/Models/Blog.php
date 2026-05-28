@@ -25,4 +25,25 @@ class Blog extends Model
             $blog->blog_slug = Str::slug($blog->blog_title); // Generate slug from title
         });
     }
+
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        if (empty($this->blog_thumbnail)) {
+            return null;
+        }
+
+        $thumbnail = $this->blog_thumbnail;
+
+        if (str_starts_with($thumbnail, 'http://') || str_starts_with($thumbnail, 'https://')) {
+            return $thumbnail;
+        }
+
+        $path = ltrim($thumbnail, '/');
+
+        if (str_starts_with($path, 'storage/')) {
+            return asset($path);
+        }
+
+        return asset('storage/' . $path);
+    }
 }

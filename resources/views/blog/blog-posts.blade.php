@@ -75,7 +75,7 @@
                     @foreach($blogs as $blog)
                     <div class="col-md-6">
                         <div class="feature-card">
-                            <img src="{{asset('storage/'.$blog->blog_thumbnail) }}" 
+                            <img src="{{ $blog->thumbnail_url ?? asset('assets/logos/patrick_logo.png') }}" 
                                  class="img-fluid rounded-modern mb-3" 
                                  alt="{{ $blog->blog_title }}"
                                  style="width: 100%; height: 250px; object-fit: cover;">
