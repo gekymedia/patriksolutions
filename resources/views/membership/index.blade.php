@@ -5,7 +5,9 @@
 @section('title', 'Upgrade Your Plan — Patrik Solutions')
 
 @push('head')
+@if($stripeConfigured)
 <script src="https://js.stripe.com/v3/"></script>
+@endif
 @endpush
 
 @section('content')
@@ -16,6 +18,12 @@
       <i class="ti ti-lock"></i> {{ session('upgrade_message') }}
     </div>
   @endif
+
+  @unless($stripeConfigured)
+    <div class="alert alert-warning mb-4" role="alert">
+      Online checkout is not active yet. Plan details are shown below; payment setup is still in progress.
+    </div>
+  @endunless
 
   <div class="ps-membership-header">
     <h1>Choose your plan</h1>
@@ -59,9 +67,13 @@
       @if($currentPlan === 'pro')
         <button class="ps-btn ps-btn--current" disabled>Current plan</button>
       @elseif($currentPlan !== 'elite')
-        <button class="ps-btn ps-btn--primary" onclick="startCheckout('pro', '{{ config('services.stripe.key') }}', '{{ $intent->client_secret }}')">
+        @if($stripeConfigured)
+        <button class="ps-btn ps-btn--primary" onclick="startCheckout('pro', '{{ config('cashier.key') }}', '{{ $intent->client_secret }}')">
           Upgrade to Pro
         </button>
+        @else
+        <button class="ps-btn ps-btn--primary" disabled>Coming soon</button>
+        @endif
       @endif
     </div>
 
@@ -80,9 +92,13 @@
       @if($currentPlan === 'elite')
         <button class="ps-btn ps-btn--current" disabled>Current plan</button>
       @else
-        <button class="ps-btn ps-btn--secondary" onclick="startCheckout('elite', '{{ config('services.stripe.key') }}', '{{ $intent->client_secret }}')">
+        @if($stripeConfigured)
+        <button class="ps-btn ps-btn--secondary" onclick="startCheckout('elite', '{{ config('cashier.key') }}', '{{ $intent->client_secret }}')">
           Upgrade to Elite
         </button>
+        @else
+        <button class="ps-btn ps-btn--secondary" disabled>Coming soon</button>
+        @endif
       @endif
     </div>
 
@@ -107,6 +123,7 @@
   @endif
 
   {{-- Payment modal --}}
+  @if($stripeConfigured)
   <div id="ps-payment-modal" style="display:none;">
     <div class="ps-modal-overlay" onclick="closeModal()"></div>
     <div class="ps-modal">
@@ -121,11 +138,13 @@
       </button>
     </div>
   </div>
+  @endif
 
 </div>
 @endsection
 
 @push('scripts')
+@if($stripeConfigured)
 <script>
 let stripe, cardElement, selectedPlan, setupClientSecret;
 
@@ -212,4 +231,5 @@ function closeModal() {
   document.getElementById('ps-payment-modal').style.display = 'none';
 }
 </script>
+@endif
 @endpush

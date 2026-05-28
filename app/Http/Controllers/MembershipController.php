@@ -15,22 +15,35 @@ class MembershipController extends Controller
         'elite' => 'price_ELITE_MONTHLY_ID',  // $49/mo
     ];
 
+    private function stripeConfigured(): bool
+    {
+        return filled(config('cashier.key')) && filled(config('cashier.secret'));
+    }
+
     // Show pricing/upgrade page
     public function index()
     {
         $user = Auth::user();
-        $intent = $user->createSetupIntent();
+        $intent = $this->stripeConfigured() ? $user->createSetupIntent() : null;
 
         return view('membership.index', [
-            'user'        => $user,
-            'currentPlan' => $user->currentPlan(),
-            'intent'      => $intent,
+            'user'              => $user,
+            'currentPlan'       => $user->currentPlan(),
+            'intent'            => $intent,
+            'stripeConfigured'  => $this->stripeConfigured(),
         ]);
     }
 
     // Subscribe to a plan
     public function subscribe(Request $request)
     {
+        if (! $this->stripeConfigured()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Online payments are not configured yet. Please try again later.',
+            ], 503);
+        }
+
         $request->validate([
             'plan'             => 'required|in:pro,elite',
             'payment_method'   => 'required|string',
@@ -103,6 +116,11 @@ class MembershipController extends Controller
     // Billing portal (Stripe hosted)
     public function billingPortal()
     {
+        if (! $this->stripeConfigured()) {
+            return redirect()->route('membership.index')
+                ->with('upgrade_message', 'Billing is not available yet. Payment setup is still in progress.');
+        }
+
         return Auth::user()->redirectToBillingPortal(route('membership.index'));
     }
 
