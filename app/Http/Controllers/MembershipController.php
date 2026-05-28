@@ -15,11 +15,6 @@ class MembershipController extends Controller
         'elite' => 'price_ELITE_MONTHLY_ID',  // $49/mo
     ];
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     // Show pricing/upgrade page
     public function index()
     {
