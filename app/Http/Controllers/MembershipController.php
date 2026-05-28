@@ -20,17 +20,28 @@ class MembershipController extends Controller
         return filled(config('cashier.key')) && filled(config('cashier.secret'));
     }
 
-    // Show pricing/upgrade page
+    // Show pricing/upgrade page (public — login required only at checkout)
     public function index()
     {
         $user = Auth::user();
-        $intent = $this->stripeConfigured() ? $user->createSetupIntent() : null;
+        $intent = null;
+        $checkoutPlan = null;
+
+        if ($user && $this->stripeConfigured()) {
+            $intent = $user->createSetupIntent();
+            $plan = request('plan');
+
+            if (in_array($plan, ['pro', 'elite'], true)) {
+                $checkoutPlan = $plan;
+            }
+        }
 
         return view('membership.index', [
             'user'              => $user,
-            'currentPlan'       => $user->currentPlan(),
+            'currentPlan'       => $user?->currentPlan() ?? 'free',
             'intent'            => $intent,
             'stripeConfigured'  => $this->stripeConfigured(),
+            'checkoutPlan'      => $checkoutPlan,
         ]);
     }
 

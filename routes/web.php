@@ -142,8 +142,9 @@ Route::post('/admin/notifications/send', [NotificationController::class, 'send']
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\TaxAssistantController;
 
+Route::get('/membership', [MembershipController::class, 'index'])->name('membership.index');
+
 Route::middleware('auth')->group(function () {
-    Route::get('/membership', [MembershipController::class, 'index'])->name('membership.index');
     Route::post('/membership/subscribe', [MembershipController::class, 'subscribe'])->name('membership.subscribe');
     Route::post('/membership/cancel', [MembershipController::class, 'cancel'])->name('membership.cancel');
     Route::post('/membership/resume', [MembershipController::class, 'resume'])->name('membership.resume');

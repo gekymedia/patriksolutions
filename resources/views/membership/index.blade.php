@@ -5,7 +5,7 @@
 @section('page-description', 'Unlock AI tax help, calculators, courses, and expert guidance')
 
 @push('head')
-@if($stripeConfigured)
+@if(auth()->check() && $stripeConfigured)
 <script src="https://js.stripe.com/v3/"></script>
 @endif
 @endpush
@@ -131,8 +131,12 @@
                         <li><i class="fas fa-times text-muted"></i> 1-on-1 consultation</li>
                     </ul>
 
-                    @if($currentPlan === 'free')
+                    @if(auth()->check() && $currentPlan === 'free')
                         <button class="btn btn-modern btn-modern-outline w-100" disabled>Current plan</button>
+                    @elseif(! auth()->check())
+                        <a href="{{ route('register', ['redirect' => route('membership.index')]) }}" class="btn btn-modern btn-modern-outline w-100">
+                            <i class="fas fa-user-plus me-2"></i>Sign up free
+                        </a>
                     @endif
                 </div>
             </div>
@@ -161,14 +165,18 @@
                         <li><i class="fas fa-times text-muted"></i> Direct WhatsApp access</li>
                     </ul>
 
-                    @if($currentPlan === 'pro')
+                    @if(auth()->check() && $currentPlan === 'pro')
                         <button class="btn btn-modern btn-modern-outline w-100" disabled>Current plan</button>
-                    @elseif($currentPlan !== 'elite')
-                        @if($stripeConfigured)
+                    @elseif(! auth()->check() || $currentPlan !== 'elite')
+                        @if($stripeConfigured && auth()->check())
                             <button type="button" class="btn btn-modern btn-modern-primary w-100"
                                 onclick="startCheckout('pro', '{{ config('cashier.key') }}', '{{ $intent->client_secret }}')">
                                 <i class="fas fa-arrow-up me-2"></i>Upgrade to Pro
                             </button>
+                        @elseif($stripeConfigured)
+                            <a href="{{ route('login', ['redirect' => route('membership.index', ['plan' => 'pro'])]) }}" class="btn btn-modern btn-modern-primary w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i>Log in to upgrade
+                            </a>
                         @else
                             <button class="btn btn-modern btn-modern-primary w-100" disabled>Coming soon</button>
                         @endif
@@ -196,14 +204,18 @@
                         <li class="included"><i class="fas fa-check text-success"></i> Tax return filing included</li>
                     </ul>
 
-                    @if($currentPlan === 'elite')
+                    @if(auth()->check() && $currentPlan === 'elite')
                         <button class="btn btn-modern btn-modern-outline w-100" disabled>Current plan</button>
                     @else
-                        @if($stripeConfigured)
+                        @if($stripeConfigured && auth()->check())
                             <button type="button" class="btn btn-modern btn-modern-secondary w-100"
                                 onclick="startCheckout('elite', '{{ config('cashier.key') }}', '{{ $intent->client_secret }}')">
                                 <i class="fas fa-crown me-2"></i>Upgrade to Elite
                             </button>
+                        @elseif($stripeConfigured)
+                            <a href="{{ route('login', ['redirect' => route('membership.index', ['plan' => 'elite'])]) }}" class="btn btn-modern btn-modern-secondary w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i>Log in to upgrade
+                            </a>
                         @else
                             <button class="btn btn-modern btn-modern-secondary w-100" disabled>Coming soon</button>
                         @endif
@@ -212,7 +224,7 @@
             </div>
         </div>
 
-        @if($currentPlan !== 'free')
+        @if(auth()->check() && $currentPlan !== 'free')
             <div class="modern-card mt-4">
                 <h4 class="modern-card-title mb-3">
                     <i class="fas fa-cog me-2" style="color: var(--primary-color);"></i>
@@ -239,7 +251,7 @@
     </div>
 </section>
 
-@if($stripeConfigured)
+@if(auth()->check() && $stripeConfigured)
 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -267,12 +279,16 @@
 @endsection
 
 @push('scripts')
-@if($stripeConfigured)
+@if(auth()->check() && $stripeConfigured)
 <script>
 let stripe, cardElement, selectedPlan, setupClientSecret, paymentModal;
 
 document.addEventListener('DOMContentLoaded', function () {
     paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+
+    @if($checkoutPlan && $intent)
+    startCheckout('{{ $checkoutPlan }}', '{{ config('cashier.key') }}', '{{ $intent->client_secret }}');
+    @endif
 });
 
 function startCheckout(plan, stripeKey, clientSecret) {
