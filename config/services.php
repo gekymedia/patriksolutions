@@ -36,13 +36,10 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\Models\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-        'webhook' => [
-            'secret' => env('STRIPE_WEBHOOK_SECRET'),
-            'tolerance' => env('CASHIER_WEBHOOK_TOLERANCE', 300),
-        ],
+        'secret_key' => env('STRIPE_SECRET_KEY'),
+        'publishable_key' => env('STRIPE_PUBLISHABLE_KEY'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+        'test_mode' => env('STRIPE_TEST_MODE', true),
     ],
 
     'anthropic' => [
