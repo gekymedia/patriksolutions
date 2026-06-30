@@ -352,6 +352,11 @@
                                 <i class="fas fa-robot me-1"></i>AI Training
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {{ request()->routeIs('membership.*') ? 'active' : '' }}" href="{{ route('membership.index') }}" style="font-size: 1rem; font-weight: 600; background: rgba(251, 191, 36, 0.2); border-radius: 6px;">
+                                <i class="fas fa-crown me-1" style="color: #fbbf24;"></i>Join Membership
+                            </a>
+                        </li>
                         
                         <!-- Free Tools Dropdown -->
                         <li class="nav-item dropdown">
@@ -492,12 +497,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
-
-                        <li class="nav-item d-flex align-items-center ms-lg-2">
-                            <a class="btn btn-warning text-dark {{ request()->routeIs('membership.*') ? 'active' : '' }}" href="{{ route('membership.index') }}" style="font-size: 0.9375rem; font-weight: 600; white-space: nowrap;">
-                                <i class="fas fa-crown me-1"></i>Join Membership
-                            </a>
                         </li>
                         
                         @auth
