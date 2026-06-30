@@ -493,6 +493,12 @@
                                 </div>
                             </div>
                         </li>
+
+                        <li class="nav-item d-flex align-items-center ms-lg-2">
+                            <a class="btn btn-warning text-dark {{ request()->routeIs('membership.*') ? 'active' : '' }}" href="{{ route('membership.index') }}" style="font-size: 0.9375rem; font-weight: 600; white-space: nowrap;">
+                                <i class="fas fa-crown me-1"></i>Join Membership
+                            </a>
+                        </li>
                         
                         @auth
                             @if(Auth::user()->isAdmin())
