@@ -46,4 +46,6 @@ return [
         'api_key' => env('ANTHROPIC_API_KEY'),
     ],
 
+    'ai_platform_url' => env('AI_PLATFORM_URL', 'https://ai.patriksolutions.com'),
+
 ];

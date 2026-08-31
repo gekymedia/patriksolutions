@@ -348,7 +348,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('index') }}#ai-training" style="font-size: 1rem; font-weight: 500;">
+                            <a class="nav-link text-white" href="{{ config('services.ai_platform_url') }}" style="font-size: 1rem; font-weight: 500;">
                                 <i class="fas fa-robot me-1"></i>AI Training
                             </a>
                         </li>
