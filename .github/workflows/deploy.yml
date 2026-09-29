@@ -1,5 +1,9 @@
 name: Deploy to VPS
 
+# Secrets (update when migrating to Hostinger):
+#   VPS_HOST, VPS_USERNAME, VPS_SSH_KEY, DEPLOY_PATH
+# See docs/HOSTINGER_VPS_MIGRATION.md
+
 on:
   push:
     branches: [ main ]
